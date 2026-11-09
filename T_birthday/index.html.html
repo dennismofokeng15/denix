@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>birthday something nyana</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            /* Background set to Galx.jpeg */
+            background: url('Galx.jpeg') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .container {
+            text-align: center;
+            width: 90%;
+            max-width: 800px;
+            padding: 20px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Countdown Animations */
+        .countdown-number {
+            font-size: 8rem;
+            font-weight: bold;
+            color: #ffffff;
+            text-shadow: 0 0 20px rgba(186, 85, 211, 0.8), 0 0 40px rgba(138, 43, 226, 0.9);
+            animation: pulsePop 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) infinite alternate;
+        }
+
+        @keyframes pulsePop {
+            0% {
+                transform: scale(0.6);
+                opacity: 0.3;
+                text-shadow: 0 0 10px rgba(186, 85, 211, 0.5);
+            }
+            100% {
+                transform: scale(1.2);
+                opacity: 1;
+                text-shadow: 0 0 35px rgba(220, 20, 60, 0.9), 0 0 50px rgba(186, 85, 211, 0.9);
+            }
+        }
+
+        /* Text Message Animation */
+        .message-text {
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: #ffffff;
+            text-shadow: 0 0 15px rgba(255, 105, 180, 0.8), 2px 2px 10px rgba(0, 0, 0, 0.7);
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Two-Photo Layout Section */
+        .photo-gallery {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .photo-card {
+            flex: 1;
+            min-width: 250px;
+            max-width: 350px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 12px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            transition: transform 0.3s ease;
+        }
+
+        .photo-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .photo-card p {
+            margin-top: 8px;
+            font-size: 1.1rem;
+            color: #333;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Countdown Container -->
+        <div id="countdown">
+            <div class="countdown-number" id="countdown-text">3</div>
+        </div>
+
+        <!-- Text Reveal Container -->
+        <div id="message-container" class="hidden">
+            <h1 class="message-text" id="message-text">HAPPY BIRTHDAY!</h1>
+        </div>
+
+        <!-- Photo Reveal Container (Two Photo Sections) -->
+        <div id="photo-reveal" class="hidden">
+            <h1 class="message-text" style="margin-bottom: 25px;">To my baby!!<br/> Teboho!!!</h1>
+            
+            <div class="photo-gallery">
+                <!-- PHOTO SECTION 1 -->
+                <div class="photo-card">
+                    <!-- Replace 'photo1.jpg' with your first image file name or URL -->
+                    <img src="us.jpeg">
+                    <p>Send me pictures!!</p>
+                </div>
+
+                <!-- PHOTO SECTION 2 -->
+                <div class="photo-card">
+                    <!-- Replace 'photo2.jpg' with your second image file name or URL -->
+                    <img src="vfs.jpg">
+                    <p>:)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const countdownText = document.getElementById('countdown-text');
+        const countdownEl = document.getElementById('countdown');
+        const messageContainer = document.getElementById('message-container');
+        const photoEl = document.getElementById('photo-reveal');
+
+        let count = 3;
+
+        // Countdown timer loop
+        const timer = setInterval(() => {
+            count--;
+            if (count > 0) {
+                // Trigger animation reset on each number step
+                countdownText.style.animation = 'none';
+                countdownText.offsetHeight; /* trigger reflow */
+                countdownText.style.animation = null;
+                countdownText.textContent = count;
+            } else {
+                clearInterval(timer);
+                countdownEl.classList.add('hidden');
+                
+                // Show "HAPPY BIRTHDAY"
+                messageContainer.classList.remove('hidden');
+                
+                // Transition to final photo section with "To my baby"
+                setTimeout(() => {
+                    messageContainer.classList.add('hidden');
+                    photoEl.classList.remove('hidden');
+                }, 2500);
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
